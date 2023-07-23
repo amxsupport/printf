@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _printf - does wonderful things
+ * _printf - does wonderful things like print "hello World" in the screen.
  * @format: character string that contains directives of how to print
  * Return: 0 on success
  */
