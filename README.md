@@ -68,7 +68,7 @@ with the conversion specifier, and are used in the order given.
 ## Authors :black_nib:
 
 * Amksa Abdelaaziz <[amxsupport](https://github.com/amxsupport)>
-* Chouquar Ottman <[Otmanbboy](https://github.com/Otmanbboy)>
+* Chouqar Ottman <[Otmanbboy](https://github.com/Otmanbboy)>
 
 ## License :lock:
 
