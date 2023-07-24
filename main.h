@@ -56,4 +56,9 @@ int _printf(const char *format, ...);
 
 buffer_t *init_buffer(void);
 
+/* Helper Functions */
+buffer_t *init_buffer(void);
+void free_buffer(buffer_t *output);
+unsigned int _memcpy(buffer_t *output, const char *src, unsigned int n);
+
 #endif
