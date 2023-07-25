@@ -65,7 +65,19 @@ unsigned char handle_flags(const char *flag, char *index)
  */
 unsigned char handle_length(const char *modifier, char *index)
 {
-	/* implement hande_length */
+	if (*modifier == 'h')
+	{
+		(*index)++;
+		return (SHORT);
+	}
+
+	else if (*modifier == 'l')
+	{
+		(*index)++;
+		return (LONG);
+	}
+
+	return (0);
 }
 
 /**
