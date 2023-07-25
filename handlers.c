@@ -91,7 +91,26 @@ unsigned char handle_length(const char *modifier, char *index)
  */
 int handle_width(va_list args, const char *modifier, char *index)
 {
-	/* implement hande_wigth */
+	int value = 0;
+
+	while ((*modifier >= '0' && *modifier <= '9') || (*modifier == '*'))
+	{
+		(*index)++;
+
+		if (*modifier == '*')
+		{
+			value = va_arg(args, int);
+			if (value <= 0)
+				return (0);
+			return (value);
+		}
+
+		value *= 10;
+		value += (*modifier - '0');
+		modifier++;
+	}
+
+	return (value);
 }
 
 /**
@@ -107,7 +126,41 @@ int handle_width(va_list args, const char *modifier, char *index)
  */
 int handle_precision(va_list args, const char *modifier, char *index)
 {
-	/* implement hande_precision */
+	int value = 0;
+
+	if (*modifier != '.')
+		return (-1);
+
+	modifier++;
+	(*index)++;
+
+	if ((*modifier <= '0' || *modifier > '9') &&
+	     *modifier != '*')
+	{
+		if (*modifier == '0')
+			(*index)++;
+		return (0);
+	}
+
+	while ((*modifier >= '0' && *modifier <= '9') ||
+	       (*modifier == '*'))
+	{
+		(*index)++;
+
+		if (*modifier == '*')
+		{
+			value = va_arg(args, int);
+			if (value <= 0)
+				return (0);
+			return (value);
+		}
+
+		value *= 10;
+		value += (*modifier - '0');
+		modifier++;
+	}
+
+	return (value);
 }
 
 /**
