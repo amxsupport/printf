@@ -23,7 +23,36 @@ unsigned int (*handle_specifiers(const char *specifier))(va_list, buffer_t *,
  */
 unsigned char handle_flags(const char *flag, char *index)
 {
-	/* implement handel_flags */
+	int i, j;
+	unsigned char ret = 0;
+	flag_t flags[] = {
+		{'+', PLUS},
+		{' ', SPACE},
+		{'#', HASH},
+		{'0', ZERO},
+		{'-', NEG},
+		{0, 0}
+	};
+
+	for (i = 0; flag[i]; i++)
+	{
+		for (j = 0; flags[j].flag != 0; j++)
+		{
+			if (flag[i] == flags[j].flag)
+			{
+				(*index)++;
+				if (ret == 0)
+					ret = flags[j].value;
+				else
+					ret |= flags[j].value;
+				break;
+			}
+		}
+		if (flags[j].value == 0)
+			break;
+	}
+
+	return (ret);
 }
 
 /**
@@ -84,18 +113,18 @@ unsigned int (*handle_specifiers(const char *specifier))(va_list, buffer_t *,
 	converter_t converters[] = {
 		{'c', convert_c},
 		{'s', convert_s},
-	/*	{'d', convert_di}, */
-	/*	{'i', convert_di}, */
+		{'d', convert_di},
+		{'i', convert_di},
 		{'%', convert_percent},
-	/*	{'b', convert_b}, */
-	/*	{'u', convert_u}, */
-	/*	{'o', convert_o}, */
-	/*	{'x', convert_x}, */
-	/*	{'X', convert_X}, */
-	/*	{'S', convert_S}, */
-	/*	{'p', convert_p}, */
-	/*	{'r', convert_r}, */
-	/*	{'R', convert_R}, */
+		{'b', convert_b},
+		{'u', convert_u},
+		{'o', convert_o},
+		{'x', convert_x},
+		{'X', convert_X},
+		{'S', convert_S},
+		{'p', convert_p},
+		{'r', convert_r},
+		{'R', convert_R},
 		{0, NULL}
 	};
 
