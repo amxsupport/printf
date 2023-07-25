@@ -27,7 +27,19 @@ unsigned int convert_p(va_list args, buffer_t *output,
 unsigned int convert_c(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
-/* implementation convert_c */
+	char c;
+	unsigned int ret = 0;
+
+	(void)prec;
+	(void)len;
+
+	c = va_arg(args, int);
+
+	ret += print_width(output, ret, flags, wid);
+	ret += _memcpy(output, &c, 1);
+	ret += print_neg_width(output, ret, flags, wid);
+
+	return (ret);
 }
 
 /**
@@ -45,7 +57,18 @@ unsigned int convert_c(va_list args, buffer_t *output,
 unsigned int convert_percent(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
-/* implementation convert_percent */
+	char percent = '%';
+	unsigned int ret = 0;
+
+	(void)args;
+	(void)prec;
+	(void)len;
+
+	ret += print_width(output, ret, flags, wid);
+	ret += _memcpy(output, &percent, 1);
+	ret += print_neg_width(output, ret, flags, wid);
+
+	return (ret);
 }
 
 /**
