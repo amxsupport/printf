@@ -125,7 +125,27 @@ unsigned int convert_b(va_list args, buffer_t *output,
 unsigned int convert_o(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
-  /* implementation of convert_o */
+	unsigned long int num;
+	unsigned int ret = 0;
+	char zero = '0';
+
+	if (len == LONG)
+		num = va_arg(args, unsigned long int);
+	else
+		num = va_arg(args, unsigned int);
+	if (len == SHORT)
+		num = (unsigned short)num;
+
+	if (HASH_FLAG == 1 && num != 0)
+		ret += _memcpy(output, &zero, 1);
+
+	if (!(num == 0 && prec == 0))
+		ret += convert_ubase(output, num, "01234567",
+				flags, wid, prec);
+
+	ret += print_neg_width(output, ret, flags, wid);
+
+	return (ret);
 }
 
 /**
@@ -143,5 +163,21 @@ unsigned int convert_o(va_list args, buffer_t *output,
 unsigned int convert_u(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
-   /* implementation of convert_u */
+	unsigned long int num;
+	unsigned int ret = 0;
+
+	if (len == LONG)
+		num = va_arg(args, unsigned long int);
+	else
+		num = va_arg(args, unsigned int);
+	if (len == SHORT)
+		num = (unsigned short)num;
+
+	if (!(num == 0 && prec == 0))
+		ret += convert_ubase(output, num, "0123456789",
+				flags, wid, prec);
+
+	ret += print_neg_width(output, ret, flags, wid);
+
+	return (ret);
 }
