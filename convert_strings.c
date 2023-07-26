@@ -44,7 +44,9 @@ unsigned int convert_s(va_list args, buffer_t *output,
 
 	ret += print_string_width(output, flags, wid, prec, size);
 
-	prec = (prec == -1) ? size : prec;
+	if (prec == -1)
+	prec = size;
+
 	while (*str != '\0' && prec > 0)
 	{
 		ret += _memcpy(output, str, 1);
@@ -89,7 +91,9 @@ unsigned int convert_S(va_list args, buffer_t *output,
 
 	ret += print_string_width(output, flags, wid, prec, size);
 
-	prec = (prec == -1) ? size : prec;
+	if (prec == -1)
+	prec = size;
+
 	for (index = 0; *(str + index) != '\0' && index < prec; index++)
 	{
 		if (*(str + index) < 32 || *(str + index) >= 127)
@@ -141,7 +145,10 @@ unsigned int convert_r(va_list args, buffer_t *output,
 	ret += print_string_width(output, flags, wid, prec, size);
 
 	end = size - 1;
-	prec = (prec == -1) ? size : prec;
+
+	if (prec == -1)
+	prec = size;
+
 	for (i = 0; end >= 0 && i < prec; i++)
 	{
 		ret += _memcpy(output, (str + end), 1);
@@ -186,7 +193,9 @@ unsigned int convert_R(va_list args, buffer_t *output,
 
 	ret += print_string_width(output, flags, wid, prec, size);
 
-	prec = (prec == -1) ? size : prec;
+	if (prec == -1)
+	prec = size;
+
 	for (i = 0; *(str + i) != '\0' && i < prec; i++)
 	{
 		for (j = 0; j < 52; j++)
