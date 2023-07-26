@@ -25,7 +25,16 @@ unsigned int print_neg_width(buffer_t *output, unsigned int printed,
 unsigned int print_width(buffer_t *output, unsigned int printed,
 		unsigned char flags, int wid)
 {
-  /* implement print_width */
+	unsigned int ret = 0;
+	char width = ' ';
+
+	if (NEG_FLAG == 0)
+	{
+		for (wid -= printed; wid > 0;)
+			ret += _memcpy(output, &width, 1);
+	}
+
+	return (ret);
 }
 
 /**
